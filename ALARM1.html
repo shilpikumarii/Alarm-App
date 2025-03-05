@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm App</title>
+    <link rel="stylesheet" href="alarm.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Alarm Clock</h1>
+        <div class="alarm-settings">
+            <input type="time" id="alarmTime">
+            <select id="alarmSoundSelect">
+                <option value="alarm1-sound.wav">Alarm 1</option>
+                <option value="alarm2-sound.wav">Alarm 2</option>
+                <option value="alarm3-sound.wav">Alarm 3</option>
+            </select>
+            <button onclick="setAlarm()">Set Alarm</button>
+            <button id="stopAlarm" disabled>Stop Alarm</button>
+        </div>
+        <ul id="alarmsList"></ul>
+    </div>
+
+    <audio id="alarmSound"></audio>
+
+    <script>
+        let alarms = [];
+
+        function setAlarm() {
+            const alarmTime = document.getElementById('alarmTime').value;
+            const selectedSound = document.getElementById('alarmSoundSelect').value;
+            
+            if (!alarmTime) {
+                alert('Please select a time!');
+                return;
+            }
+            
+            const now = new Date();
+            const alarmDate = new Date(now.toDateString() + ' ' + alarmTime);
+            if (alarmDate < now) {
+                alarmDate.setDate(alarmDate.getDate() + 1);
+            }
+            
+            const timeout = alarmDate - now;
+            const alarmId = setTimeout(() => {
+                const alarmAudio = document.getElementById('alarmSound');
+                alarmAudio.src = selectedSound;
+                alarmAudio.play();
+                alert('Alarm ringing!');
+                navigator.vibrate([500, 500, 500]);
+            }, timeout);
+            
+            alarms.push({ time: alarmTime, id: alarmId, sound: selectedSound });
+            updateAlarmList();
+        }
+
+        function deleteAlarm(index) {
+            clearTimeout(alarms[index].id);
+            alarms.splice(index, 1);
+            updateAlarmList();
+        }
+
+        function updateAlarmList() {
+            const list = document.getElementById('alarmsList');
+            list.innerHTML = '';
+            alarms.forEach((alarm, index) => {
+                list.innerHTML += `<li>${alarm.time} - ${alarm.sound} <button onclick="deleteAlarm(${index})">Delete</button></li>`;
+            });
+        }
+    </script>
+</body>
+</html>
