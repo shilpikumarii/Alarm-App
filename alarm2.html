@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alarm2 App</title>
+  <link rel="stylesheet" href="alarm2.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Alarm App</h1>
+    <label for="alarmTime">Set Alarm Time:</label>
+    <input type="time" id="alarmTime">
+    <select id="alarmSoundSelect">
+      <option value="alarm1-sound.wav">Alarm 1</option>
+      <option value="alarm2-sound.wav">Alarm 2</option>
+      <option value="alarm3-sound.wav">Alarm 3</option>
+    </select>
+    <button id="setAlarm">Set Alarm</button>
+    <button id="stopAlarm" disabled>Stop Alarm</button>
+    <p id="status"></p>
+  </div>
+  <script src="alarm2.js"></script> <!-- JavaScript should be loaded here -->
+</body>
+</html>
