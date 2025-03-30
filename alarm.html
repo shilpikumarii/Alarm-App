@@ -9,12 +9,34 @@
 <body>
   <div class="container">
     <h1>Alarm App</h1>
-    <label for="alarmTime">Set Alarm Time:</label>
-    <input type="time" id="alarmTime">
-    <button id="setAlarm">Set Alarm</button>
-    <button id="stopAlarm" disabled>Stop Alarm</button>
-    <p id="status"></p>
+
+    <!-- Alarm Form -->
+    <div class="alarm-form">
+      <input type="time" id="alarm-time" required>
+      <input type="text" id="alarm-label" placeholder="Label (optional)">
+      <select id="alarm-tone">
+        <option value="tone1.mp3">Tone 1</option>
+        <option value="tone2.mp3">Tone 2</option>
+      </select>
+      <label>
+        <input type="checkbox" id="vibration"> Vibration
+      </label>
+      <button id="set-alarm">Set Alarm</button>
+    </div>
+
+    <!-- Alarm List -->
+    <div class="alarm-list">
+      <h2>Active Alarms</h2>
+      <ul id="alarms"></ul>
+    </div>
+
+    <!-- Snooze Button (Hidden by Default) -->
+    <button id="snooze-button" class="hidden">Snooze (5 mins)</button>
   </div>
+
+  <!-- Audio for Alarm Tone -->
+  <audio id="alarm-audio" src="tone1.mp3" loop></audio>
+
   <script src="alarm.js"></script>
 </body>
 </html>
